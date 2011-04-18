@@ -111,6 +111,11 @@ public class Peer implements Comparable<Peer>
     {
         return peerID.hashCode();
     }
+    
+    //method to get metainfo field
+    public MetaInfo meta(){
+    	return this.metainfo;
+    }
 
     /**
      * Two Peers are equal when they have the same PeerID. All other properties

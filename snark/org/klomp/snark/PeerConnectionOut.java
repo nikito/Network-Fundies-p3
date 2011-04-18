@@ -1,5 +1,4 @@
 /*
- * testing 1 2 3
  * PeerConnectionOut - Keeps a queue of outgoing messages and delivers them.
  * Copyright (C) 2003 Mark J. Wielaard
  * 
@@ -24,6 +23,8 @@ package org.klomp.snark;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,6 +32,10 @@ import java.util.logging.Logger;
 
 class PeerConnectionOut implements Runnable
 {
+	private final double P3 = 0.1;
+	
+	private long remaining;
+	
     private final Peer peer;
 
     private final DataOutputStream dout;
@@ -50,6 +55,14 @@ class PeerConnectionOut implements Runnable
         thread = new Thread(this);
         thread.start();
     }
+    // method to set how much data is needed before we complete.
+    public void setRemaining(long r){
+    	this.remaining = r;
+    }
+    //method to determine if we should initiate the phase3 algorithm
+    public boolean phase3(double d){
+    	return (double)(this.remaining) / (double)(peer.meta().getTotalLength()) >= d;
+    }
 
     /**
      * Continuesly monitors for more outgoing messages that have to be send.
@@ -62,6 +75,9 @@ class PeerConnectionOut implements Runnable
                 Message m = null;
                 PeerState state = null;
                 synchronized (sendQueue) {
+                	if(true){
+                    	Collections.sort(sendQueue);
+                	}
                     while (!quit && sendQueue.isEmpty()) {
                         try {
                             // Make sure everything will reach the other side.

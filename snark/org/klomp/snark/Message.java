@@ -22,10 +22,11 @@ package org.klomp.snark;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.*;
 
 // Used to queue outgoing connections
 // sendMessage() should be used to translate them to wire format.
-class Message
+class Message implements Comparable<Message>
 {
     final static byte KEEP_ALIVE = -1;
 
@@ -153,4 +154,9 @@ class Message
             return "<UNKNOWN>";
         }
     }
+
+	@Override
+	public int compareTo(Message arg0) {
+		return this.piece - arg0.piece;
+	}
 }
