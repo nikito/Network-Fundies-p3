@@ -40,7 +40,9 @@ org/klomp/snark/bencode/BEValue.java \
 org/klomp/snark/bencode/BEncoder.java \
 org/klomp/snark/bencode/BDecoder.java \
 org/klomp/snark/bencode/InvalidBEncodingException.java \
-org/klomp/snark/StaticSnark.java
+org/klomp/snark/StaticSnark.java \
+org/klomp/snark/cmd/SnarkApplication.java \
+org/klomp/snark/cmd/ConsoleReporter.java
 
 STATIC_MAINCLASS=org.klomp.snark.StaticSnark
 
