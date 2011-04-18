@@ -56,7 +56,7 @@ class PeerConnectionOut implements Runnable
 
     //method to determine if we should initiate the phase3 algorithm
     public boolean phase3(double d){
-    	return (double)(peer.getRemaining()) / (double)(peer.meta().getTotalLength()) >= d;
+    	return (double)(peer.getRemaining()) / (double)(peer.meta().getTotalLength()) <= d;
     }
 
     /**
