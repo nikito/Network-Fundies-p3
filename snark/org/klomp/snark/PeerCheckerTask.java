@@ -129,7 +129,8 @@ class PeerCheckerTask extends TimerTask
                 	long share = peer.getDownloaded() / downloaded;
                 	allocation = (share * ((long) .8)) * avgUploadBandwidth;
                 }
-                                   
+                //ugly hack..
+                peer.setRemaining(coordinator.getLeft());
                 peer.setBudget(allocation);
                 peer.resetCounters();
 

@@ -38,6 +38,8 @@ public class Peer implements Comparable<Peer>
     private final byte[] my_id;
 
     private final MetaInfo metainfo;
+    
+    private long remaining;
 
     // The data in/output streams set during the handshake and used by
     // the actual connections.
@@ -92,6 +94,16 @@ public class Peer implements Comparable<Peer>
     public PeerID getPeerID ()
     {
         return peerID;
+    }
+    
+    // method to set how much data is needed before we complete.
+    public void setRemaining(long r){
+    	this.remaining = r;
+    }
+    
+    // method to access remaining
+    public long getRemaining(){
+    	return this.remaining;
     }
 
     /**

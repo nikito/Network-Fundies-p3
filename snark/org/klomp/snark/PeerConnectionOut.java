@@ -34,8 +34,6 @@ class PeerConnectionOut implements Runnable
 {
 	private final double P3 = 0.1;
 	
-	private long remaining;
-	
     private final Peer peer;
 
     private final DataOutputStream dout;
@@ -55,13 +53,10 @@ class PeerConnectionOut implements Runnable
         thread = new Thread(this);
         thread.start();
     }
-    // method to set how much data is needed before we complete.
-    public void setRemaining(long r){
-    	this.remaining = r;
-    }
+
     //method to determine if we should initiate the phase3 algorithm
     public boolean phase3(double d){
-    	return (double)(this.remaining) / (double)(peer.meta().getTotalLength()) >= d;
+    	return (double)(peer.getRemaining()) / (double)(peer.meta().getTotalLength()) >= d;
     }
 
     /**
@@ -75,7 +70,7 @@ class PeerConnectionOut implements Runnable
                 Message m = null;
                 PeerState state = null;
                 synchronized (sendQueue) {
-                	if(true){
+                	if(phase3(P3)){
                     	Collections.sort(sendQueue);
                 	}
                     while (!quit && sendQueue.isEmpty()) {
